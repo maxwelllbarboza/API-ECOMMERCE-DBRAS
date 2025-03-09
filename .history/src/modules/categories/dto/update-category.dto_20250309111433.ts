@@ -1,7 +1,6 @@
-import { Transform } from "class-transformer";
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class CreateCategoryDto {
+export class UpdateCategoryDto {
     @IsString()
     @IsNotEmpty({message: 'O nome da categoria é obrigatório.'})
     @Transform(({ value }) => value?.trim(), { toClassOnly: true })

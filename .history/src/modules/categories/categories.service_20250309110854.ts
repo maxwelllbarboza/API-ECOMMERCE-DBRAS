@@ -1,7 +1,6 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/config/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -21,17 +20,17 @@ export class CategoriesService {
               throw new BadRequestException('Page and pageSize must be greater than 0');
             }    
             try {
-              const [categories, totalCount] = await Promise.all([
-                this.prismaService.category.findMany({
+              const [products, totalCount] = await Promise.all([
+                this.prismaService.product.findMany({
                   skip: (page -1) * pageSize,
                   take: pageSize,
                   orderBy: {name: 'asc'},
                 }),
-                this.prismaService.category.count(),
+                this.prismaService.product.count(),
               ]);
           
               return {
-                categories,
+                products,
                 totalCount,
                 totalPages: Math.ceil(totalCount / pageSize),
                 currentPage: page,
@@ -46,7 +45,7 @@ export class CategoriesService {
         
           async findOne(id: string) {
             try {
-              const product = await this.prismaService.category.findUnique({
+              const product = await this.prismaService.product.findUnique({
                 where: {id},
               });
         
@@ -59,13 +58,13 @@ export class CategoriesService {
             }
           }
         
-          async update(id: string, updateCategoryDto: UpdateCategoryDto) {
+          async update(id: string, updateProductDto: UpdateProductDto) {
             try {
               if (!id) {
                 throw new BadRequestException('Product ID is required');
               }
         
-              const existingProduct = await this.prismaService.category.findUnique({
+              const existingProduct = await this.prismaService.product.findUnique({
                 where: { id },
               });
         
@@ -73,14 +72,14 @@ export class CategoriesService {
                 throw new NotFoundException(`Product with ID ${id} not found`);
               }
               const data = Object.fromEntries(
-                Object.entries(updateCategoryDto).filter(([_, value]) => value !== undefined)
+                Object.entries(updateProductDto).filter(([_, value]) => value !== undefined)
               );
         
               if (Object.keys(data).length === 0) {
                 throw new BadRequestException('At least one field must be updated');
               }
         
-              return await this.prismaService.category.update({
+              return await this.prismaService.product.update({
                 where: { id },
                 data,
               });
@@ -90,6 +89,6 @@ export class CategoriesService {
           }
         
           remove(id: string) {
-            return this.prismaService.category.delete({where: {id}});
+            return this.prismaService.product.delete({where: {id}});
           }
 }

@@ -17,7 +17,7 @@ export class CategoriesController {
     findAll(
         @Query('page') page?: string, 
         @Query('pageSize') pageSize? : string
-    ){
+    ) {
         const pageNumber = page ? parseInt(page, 10) : 1;
         const size = pageSize ? parseInt(pageSize, 10) : 10;
         return this.categoriesService.findAll(pageNumber, size);

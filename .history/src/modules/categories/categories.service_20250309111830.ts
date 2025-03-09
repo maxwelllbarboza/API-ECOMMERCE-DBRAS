@@ -73,7 +73,7 @@ export class CategoriesService {
                 throw new NotFoundException(`Product with ID ${id} not found`);
               }
               const data = Object.fromEntries(
-                Object.entries(updateCategoryDto).filter(([_, value]) => value !== undefined)
+                Object.entries(updateProductDto).filter(([_, value]) => value !== undefined)
               );
         
               if (Object.keys(data).length === 0) {

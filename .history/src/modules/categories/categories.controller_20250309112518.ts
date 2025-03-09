@@ -1,7 +1,6 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -17,25 +16,25 @@ export class CategoriesController {
     findAll(
         @Query('page') page?: string, 
         @Query('pageSize') pageSize? : string
-    ){
+    ) {
         const pageNumber = page ? parseInt(page, 10) : 1;
         const size = pageSize ? parseInt(pageSize, 10) : 10;
         return this.categoriesService.findAll(pageNumber, size);
     }
         
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.categoriesService.findOne(id);
-    }
-    @HttpCode(200)
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-        return this.categoriesService.update(id, updateCategoryDto);
-    }
+          @Get(':id')
+          findOne(@Param('id') id: string) {
+            return this.categoriesService.findOne(id);
+          }
+          @HttpCode(200)
+          @Patch(':id')
+          update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+            return this.productsService.update(id, updateProductDto);
+          }
           
-    @HttpCode(204)
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.categoriesService.remove(id);
-    }
+          @HttpCode(204)
+          @Delete(':id')
+          remove(@Param('id') id: string) {
+            return this.productsService.remove(id);
+          }
 }

@@ -1,7 +1,6 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/config/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -59,7 +58,7 @@ export class CategoriesService {
             }
           }
         
-          async update(id: string, updateCategoryDto: UpdateCategoryDto) {
+          async update(id: string, updateProductDto: UpdateProductDto) {
             try {
               if (!id) {
                 throw new BadRequestException('Product ID is required');
@@ -73,7 +72,7 @@ export class CategoriesService {
                 throw new NotFoundException(`Product with ID ${id} not found`);
               }
               const data = Object.fromEntries(
-                Object.entries(updateCategoryDto).filter(([_, value]) => value !== undefined)
+                Object.entries(updateProductDto).filter(([_, value]) => value !== undefined)
               );
         
               if (Object.keys(data).length === 0) {
