@@ -20,6 +20,8 @@
                 "DELETE"
             ]
         }
-    ],    
-    "outputDirectory": "dist"     
+    ],
+    
+    "outputDirectory": "dist"
+     
 }
