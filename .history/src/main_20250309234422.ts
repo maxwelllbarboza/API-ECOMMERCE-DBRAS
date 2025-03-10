@@ -4,8 +4,11 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 
-async function bootstrap() { 
-
+async function bootstrap() {
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.PORT);
+  console.log(process.env.JWT_SECRET);
+  console.log(process.env.JWT_SECRET);
   const app = await NestFactory.create(AppModule);
 
   // Filter
@@ -36,7 +39,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
   
-  const port = process.env.PORT || 3000;  
-  await app.listen(port);
+  await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
