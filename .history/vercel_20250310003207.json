@@ -3,10 +3,7 @@
     "builds":[
         {
             "src":"src/main.ts",
-            "use":"@vercel/node",
-            "config": {
-                "buildCommand": "npm run build"
-            }
+            "use":"@vercel/node"
         }
     ],
     "routes":[
@@ -20,6 +17,8 @@
                 "DELETE"
             ]
         }
-    ],    
-    "outputDirectory": "dist"     
+    ],
+    
+    "outputDirectory": "dist",
+     
 }
