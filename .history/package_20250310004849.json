@@ -9,7 +9,7 @@
     "build": "npx prisma generate && nest build",
     "start": "nest start",
     "seed": "ts-node prisma/seed.ts",
-    "vercel-build": "npx prisma migrate deploy",
+    "vercel-build": "npx",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
